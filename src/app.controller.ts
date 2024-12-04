@@ -1,5 +1,8 @@
 import { Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
+import { User, UserRequest } from './models/User';
+import { Activity } from './models/ActivityData';
+import { UserActivities } from './models/UserActivities';
 
 @Controller()
 export class AppController {
@@ -11,12 +14,15 @@ export class AppController {
   }
 
   @Post('/create-user-data')
-  createUserData(): string {
-    return this.appService.getUserData();
+  createUserData(user: UserRequest): string {
+    return this.appService.createUser(user);
   }
-
+  @Post('/create-user-data')
+  createActivity(userId: string,activity: Activity): string {
+    return this.appService.createActivityForUser(userId,activity);
+  }
   @Post('/update-user-data')
-  updateUserData(): string {
-    return this.appService.getUserData();
+  updateUserData(userId: string,userActivities: UserActivities): string {
+    return this.appService.updateUserData(userId,userActivities);
   }
 }

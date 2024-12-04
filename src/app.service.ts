@@ -1,4 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { Activity } from './models/ActivityData';
+import { User, UserRequest } from './models/User';
+import { UserActivities } from './models/UserActivities';
 
 @Injectable()
 export class AppService {
@@ -135,4 +138,25 @@ export class AppService {
     }
     return userActivities;
   }
+  createUser(user: UserRequest): any {
+    //enter new user to dataBase
+    const newUser = new User();
+    newUser.name = user.name;
+    newUser.familyName = user.familyName;
+    newUser.email = user.email;
+    newUser.activities = [];
+    newUser.id = createId();
+  }
+  createActivityForUser(userId: string,activity: Activity): any {
+    
+  }
+  //the all json data update
+  updateUserData(userId: string,userActivities: UserActivities): any {
+
+  }
+
 }
+function createId(): number {
+  return Math.floor(Math.random() * 1000000);
+}
+
